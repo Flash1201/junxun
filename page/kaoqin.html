@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7, minimum-scale=0.1, maximum-scale=1.0, user-scalable=no" />
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <title>欢迎来到 {team} 队后台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .czr,
+        .query {
+            text-align: center;
+            margin: 10px;
+            height: 50px;
+            /* border: 1px solid #000; */
+        }
+
+        li {
+            list-style: none;
+        }
+
+        table {
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        table tr td {
+            border: 1px solid #000;
+            padding: 2px 5px;
+        }
+
+        .info {
+            width: 90%;
+            height: 90%;
+            overflow-y: auto;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            border: 1px solid #000000;
+            background-color: #ccc;
+            cursor: default;
+            scrollbar-color: transparent transparent;
+            scrollbar-track-color: transparent;
+            -ms-scrollbar-track-color: transparent;
+        }
+
+        .info::-webkit-scrollbar {
+            display: none;
+        }
+
+        .info table {
+            margin: 0 auto 10px auto;
+        }
+
+        #name {
+            color: rgb(19, 103, 151);
+            cursor: pointer;
+        }
+
+        .list table {
+            margin: 20px auto 0 auto;
+        }
+
+        button {
+            margin: 8px;
+            border: none;
+            width: 50px;
+            height: 30px;
+            border-radius: 3px;
+        }
+
+        .btn {
+            text-align: center;
+        }
+
+        #sub {
+            height: 50px;
+            width: 95%;
+            background-color: rgb(0, 121, 50);
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="czr">
+        <span>请输入你的姓名：</span>
+        <input type="text" id="czr">
+    </div>
+    <div class="query">
+        <span>输入查询的学号或姓名：</span>
+        <input type="text" id="cxxh">
+        <button id="btn_cx">查询</button>
+    </div>
+
+    <ul class="list">
+        <!-- <table>
+            <tr>
+                <td width="120px">姓名</td>
+                <td>学号</td>
+                <td>备注</td>
+            </tr>
+            <tr>
+                <td>张世纪</td>
+                <td>201932301481</td>
+                <td><input type="text" id="bz"></td>
+            <tr>
+                <td colspan="3">
+                    <button onclick="cz(0,201932311196,this)">未到</button>
+                    <button onclick="cz(0,201932311196,this)">未到</button>
+                    <button onclick="cz(0,201932311196,this)">未到</button>
+                    <button onclick="cz(0,201932311196,this)">未到</button>
+                    <button onclick="cz('null',201932311196,this)">清除</button>
+                </td>
+            </tr>
+        </table> -->
+    </ul>
+    <div class="btn">
+        <button onclick="sub()" id="sub">提交</button>
+    </div>
+
+    <div class="info" hidden></div>
+
+    <script>
+        var list = [];
+        var yd = 0;
+        var zc = 0;
+        function sub() {
+            let wd = 0;
+            let cd = 0;
+            let sj = 0;
+            let bj = 0;
+            for (const key in list) {
+                switch (list[key].type) {
+                    case 0:
+                        wd += 1;
+                        break;
+                    case 1:
+                        cd += 1;
+                        break;
+                    case 2:
+                        sj += 1;
+                        break;
+                    case 3:
+                        bj += 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            let msg = '应到：' + yd + '\n';
+            msg = msg + '正常：' + (zc - list.length) + '\n';
+            msg = msg + '迟到：' + cd + '\n';
+            msg = msg + '事假：' + sj + '\n';
+            msg = msg + '病假：' + bj + '\n';
+            msg = msg + '未到：' + wd + '\n';
+            alert(msg);
+        }
+
+        function info(user) {
+            $(".info").html('');
+            $.get("?type=query&query_type=info&info_user=" + user, function (data) {
+                var json = $.parseJSON(data);
+                switch (json.code) {
+                    case 100:
+                        for (const key in json.result) {
+                            let html = '<table> <tr> <td colspan="6"><strong>' + json.result[key].rq + '</strong></td> </tr> <tr> <td><strong>早上</strong></td> <td><strong>上午</strong></td> <td><strong>下午</strong></td> <td><strong>晚上</strong></td> <td><strong>情况记录</strong></td> <td><strong>操作人</strong></td> </tr> <tr> <td>' + json.result[key].z + '</td> <td>' + json.result[key].s + '</td> <td>' + json.result[key].x + '</td> <td>' + json.result[key].w + '</td> <td>' + json.result[key].qk + '</td> <td>' + json.result[key].czr + '</td> </tr> </table>';
+                            $(".info").append(html);
+                        }
+                        $(".info").show();
+                        break;
+                    default:
+                        alert(json.message);
+                        break;
+                }
+            });
+        }
+
+        function cz(type, user, obj) {
+            if ($("#czr").val() == '') {
+                $("#czr").focus();
+                alert("请输入你的姓名");
+            } else {
+                var bz = '';
+                if ($(obj).parent().children('input').val() != '') {
+                    bz = $(obj).parents("table").find("#bz").val();
+                }
+                $.get("?type=oper&oper_type=kaoqin&kaoqin_user=" + user + "&kaoqin_type=" + type + "&kaoqin_note=" + bz + "&kaoqin_czr=" + $("#czr").val(), function (data) {
+                    var json = $.parseJSON(data);
+                    switch (json.code) {
+                        case 100:
+                            var row = {};
+                            if ($(obj).css("color") == 'rgb(0, 0, 0)') {
+                                row.user = user;
+                                row.type = type;
+                                list.push(row)
+                            } else {
+                                list.forEach((val, index) => {
+                                    if (val["user"] == user) {
+                                        val["type"] = type;
+                                    }
+                                })
+                            }
+                            $(obj).css({
+                                "background-color": "red",
+                                "color": "#ffffff"
+                            }).siblings().css({
+                                "background-color": "blue",
+                                "color": "#ffffff"
+                            });
+                            break;
+                        default:
+                            alert(json.message);
+                            break;
+                    }
+                });
+            }
+
+        }
+
+        $(document).ready(function () {
+            $(".info").click(function () {
+                $(this).html('');
+                $(this).hide();
+            });
+
+            $("#btn_cx").click(function () {
+                $(".list").html('');
+                $.get("?type=query&query_type=people&people_team={team}&people_user=" + $("#cxxh").val(), function (data) {
+                    var json = $.parseJSON(data);
+                    switch (json.code) {
+                        case 100:
+                            for (const key in json.result) {
+                                let html = '<table> <tr> <td>姓名</td> <td>学号</td> <td>备注</td> </tr> <tr> <td>' + json.result[key].xm + '</td> <td>' + json.result[key].xh + '</td> <td><input type="text" id="bz" placeholder="如有情况填写"></td> <tr> <td colspan="3"> <button onclick="cz(0,' + json.result[key].xh + ',this)">未到</button> <button onclick="cz(1,' + json.result[key].xh + ',this)">迟到</button> <button onclick="cz(2,' + json.result[key].xh + ',this)">事假</button> <button onclick="cz(3,' + json.result[key].xh + ',this)">病假</button> <button onclick="cz(\'null\',' + json.result[key].xh + ',this)">清除</button> </td> </tr> </table>';
+                                $(".list").append(html);
+                            }
+                            break;
+                        default:
+                            alert(json.message);
+                            break;
+                    }
+                });
+            });
+
+
+            $.get("?type=query&query_type=people&people_team={team}", function (data) {
+                var json = $.parseJSON(data);
+                switch (json.code) {
+                    case 100:
+                        yd = json.result.length;
+                        zc = json.result.length;
+                        for (const key in json.result) {
+                            let html = '<table> <tr> <td width="120px">姓名</td> <td>学号</td> <td>备注</td> </tr> <tr> <td>' + json.result[key].xm + '</td> <td>' + json.result[key].xh + '</td> <td><input type="text" id="bz" placeholder="如有情况填写"></td> <tr> <td colspan="3"> <button onclick="cz(0,' + json.result[key].xh + ',this)">未到</button> <button onclick="cz(1,' + json.result[key].xh + ',this)">迟到</button> <button onclick="cz(2,' + json.result[key].xh + ',this)">事假</button> <button onclick="cz(3,' + json.result[key].xh + ',this)">病假</button> <button onclick="cz(\'null\',' + json.result[key].xh + ',this)">清除</button> </td> </tr> </table>';
+                            $(".list").append(html);
+                        }
+                        break;
+                    default:
+                        alert(json.message);
+                        break;
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

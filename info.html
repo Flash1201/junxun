@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <title>个人信息查询</title>
+    <style>
+        table {
+            margin-bottom: 10px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        table tr td {
+            border: 1px solid #000;
+            padding: 2px 5px;
+        }
+
+        .info {
+            padding: 10px;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+    学号：<input type="text" id="user">
+    <button id="querybtn">查询</button>
+    <div class="info"></div>
+
+    <script>
+        $(document).ready(function () {
+            $("#querybtn").click(function () {
+                $(".info").html('');
+                $.get("api/?type=query&query_type=xinxi&xinxi_user=" + $("#user").val(), function (data) {
+                    var json = $.parseJSON(data);
+                    switch (json.code) {
+                        case 100:
+                            for (const key in json.result) {
+                                let html = '<table> <tr> <td colspan="6"><strong>' + json.result[key].rq + '</strong></td> </tr> <tr> <td><strong>早上</strong></td> <td><strong>上午</strong></td> <td><strong>下午</strong></td> <td><strong>晚上</strong></td> <td><strong>情况记录</strong></td> </tr> <tr> <td>' + json.result[key].z + '</td> <td>' + json.result[key].s + '</td> <td>' + json.result[key].x + '</td> <td>' + json.result[key].w + '</td> <td>' + json.result[key].qk + '</td> </tr> </table>';
+                                $(".info").append(html);
+                            }
+                            $(".info").show();
+                            break;
+                        default:
+                            $(".info").html('');
+                            alert(json.message);
+                            break;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

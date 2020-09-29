@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <title>密码修改</title>
+</head>
+
+<body>
+    <script>
+        $.get("api/?type=qxian", function (data) {
+            var json = $.parseJSON(data);
+            if (json.code != 100) {
+                switch (json.code) {
+                    case 103:
+                        var pass = prompt("请输入密码");
+                        if (pass != null && pass != "") {
+                            $.get("api/?type=qxian&pass=" + pass, function (data) {
+                                var json = $.parseJSON(data);
+                                switch (json.code) {
+                                    case 100:
+                                        window.location.href = '';
+                                        break;
+                                    default:
+                                        alert(json.message);
+                                        window.location.href = '';
+                                        break;
+                                }
+                            });
+                        } else {
+                            window.location.href = '';
+                        }
+                        break;
+                    case 102:
+                        var pass = prompt("密码权限不足！请重新输入密码！");
+                        if (pass != null && pass != "") {
+                            $.get("api/?type=qxian&pass=" + pass, function (data) {
+                                var json = $.parseJSON(data);
+                                switch (json.code) {
+                                    case 100:
+                                        window.location.href = '';
+                                        break;
+                                    default:
+                                        alert(json.message);
+                                        window.location.href = '';
+                                        break;
+                                }
+                            });
+                        } else {
+                            window.location.href = '';
+                        }
+                        break;
+                    default:
+                        var pass = prompt("请输入密码");
+                        if (pass != null && pass != "") {
+                            $.get("api/?type=qxian&pass=" + pass, function (data) {
+                                var json = $.parseJSON(data);
+                                switch (json.code) {
+                                    case 100:
+                                        window.location.href = '';
+                                        break;
+                                    default:
+                                        alert(json.message);
+                                        window.location.href = '';
+                                        break;
+                                }
+                            });
+                        } else {
+                            window.location.href = '';
+                        }
+                        break;
+                }
+            }
+        });
+
+        function sjpass() {
+            var pass = "0123456789";
+            var txt = "";
+            for (let index = 0; index < 6; index++) {
+                var suiji = Math.floor(Math.random() * 10);
+                txt += pass[suiji];
+            }
+            return txt;
+        }
+
+
+        $(document).ready(function () {
+            $("#btn_admin").click(function () {
+                $("#adminpass").val(sjpass());
+            });
+
+            $("#btn_pt").click(function () {
+                $("#ptpass").val(sjpass());
+            });
+
+
+            $("#btn_xg_admin").click(function () {
+                var pass = $("#adminpass").val();
+                if (pass == '') {
+                    alert('不允许空密码');
+                } else {
+                    if (confirm("管理员密码修改后请务必记住！")) {
+                        $.get("api/?type=oper&oper_type=xgmm&pass_type=admin&pass=" + pass, function (data) {
+                            var json = $.parseJSON(data);
+                            switch (json.code) {
+                                case 100:
+                                    alert('修改成功！');
+                                    break;
+                                default:
+                                    alert(json.message);
+                                    break;
+                            }
+                        });
+                    }
+                }
+            });
+
+            $("#btn_xg_pt").click(function () {
+                var pass = $("#ptpass").val();
+                if (pass == '') {
+                    alert('不允许空密码');
+                } else {
+                    $.get("api/?type=oper&oper_type=xgmm&pass_type=putong&pass=" + pass, function (data) {
+                        var json = $.parseJSON(data);
+                        switch (json.code) {
+                            case 100:
+                                alert('修改成功！');
+                                break;
+                            default:
+                                alert(json.message);
+                                break;
+                        }
+                    });
+                }
+            });
+            
+        });
+
+
+    </script>
+    <div>
+        管理员密码：
+        <input type="text" id="adminpass">
+        <button id="btn_admin">随机生成</button><br>
+        <button id="btn_xg_admin">修改</button>
+    </div>
+    <div>
+        普通密码：
+        <input type="text" id="ptpass">
+        <button id="btn_pt">随机生成</button><br>
+        <button id="btn_xg_pt">修改</button>
+    </div>
+
+</body>
+
+</html>

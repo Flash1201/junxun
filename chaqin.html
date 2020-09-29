@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="css/chaqin.css">
+    <script src="js/chaqin.js"></script>
+    <title>宿舍管理</title>
+</head>
+
+<body>
+    <div class="main">
+        <div>请选择楼号：</div>
+        <select id="dorm_L">
+            <option value="-">---请选择---</option>
+        </select>
+        <br>
+        <div>请选择宿舍号：</div>
+        <select id="dorm_S">
+            <option value="-">---请选择---</option>
+        </select>
+    
+        <div id="peoplist">
+            <!-- <label>
+                <input type="radio" name="people" value="201932301481">
+                <span>张世纪</span>
+            </label> -->
+        </div>
+    
+        <div class="tool">
+            <div>操作人：</div>
+            <input type="text" id="czr">
+            <textarea id="dorm_txt" placeholder="请在此处填写情况"></textarea>
+            <br>
+            <button id="btn">提交</button>
+        </div>
+    </div>
+    
+</body>
+
+</html>

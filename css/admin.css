@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("../image/bg.png");
+}
+
+hr {
+    margin: 10px 0;
+    border: none;
+    height: 1px;
+    background-color: #ebebeb;
+}
+
+ul {
+    list-style: none;
+}
+
+.main {
+    padding: 0 10px 10px 10px;
+    margin: 0 auto;
+    width: 980px;
+    background-color: rgba(247, 247, 247, 0.125);
+    /* box-shadow: 2px 2px 5px #ccc; */
+}
+
+.main table {
+    margin: 0 auto 10px auto;
+    background-color: rgba(255, 255, 255, 0.438);
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.main table tr td {
+    border: 1px solid #000;
+    padding: 2px 20px;
+}
+
+.main .daohang {
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+    background-color: #577f49;
+    color: #fff;
+}
+
+.main .daohang .select {
+    border: none !important;
+    border-bottom: 2px solid #fff !important;
+}
+
+.main .daohang li {
+    display: inline-block;
+    line-height: 30px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.main .daohang li:hover {
+    border-bottom: 2px solid #fff !important;
+    /* transition: all .1s; */
+}
+
+.main #kq {
+    width: 100%;
+}
+
+.main #kq .showinfo {
+    width: 90%;
+    height: 90%;
+    overflow-y: auto;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    border: 1px solid #000000;
+    background-color: #ccc;
+    cursor: default;
+    /* scrollbar-color: transparent transparent;
+    scrollbar-track-color: transparent;
+    -ms-scrollbar-track-color: transparent; */
+}
+
+.main #kq .showinfo .close {
+    float: right;
+    /* position: fixed;
+    top: 10px;
+    right: 10px; */
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    background-color: #ffffff;
+    color: #ff0000;
+}
+
+.main #kq #zong {
+    color: #ffffff;
+    text-align: center;
+}
+
+.main #kq #zong a {
+    cursor: pointer;
+}
+
+.main #kq #list a {
+    color: #047a00;
+    cursor: pointer;
+}
+
+.main #kq #list a:hover {
+    text-decoration: underline;
+}
+
+.main #kq ul li {
+    margin-bottom: 10px;
+}
+
+.main #kq ul li div {
+    padding: 10px;
+    margin: 0 auto;
+    width: 600px;
+    border: 1px solid #EBEBEB;
+    background-color: rgba(255, 255, 255, 0.329);
+    border-radius: 15px;
+}
+
+.main #kq ul li div span {
+    display: block;
+    text-align: center;
+}
+
+.main #tool {
+    text-align: center;
+}
+
+.main #tool .mrkq {
+    display: inline-block;
+    text-align: center;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.363);
+    height: 100px;
+}
+
+.main #tool .jxhz {
+    display: inline-block;
+    text-align: center;
+    width: 400px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.363);
+    vertical-align: top;
+}

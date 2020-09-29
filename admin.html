@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <title>考勤后台</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <div class="main">
+        <!-- 导航栏 -->
+        <ul class="daohang">
+            <li class="select" id="kqxx">考勤信息</li>
+            <li id="sushe">宿舍情况</li>
+            <li id="wdxz">文档下载</li>
+        </ul>
+
+        <!-- 考勤面板 -->
+        <div id="kq">
+            <select id="kqrq"></select>
+            <div class="showinfo" hidden>
+                <div class="close">×</div>
+                <div class="info_list">
+                    <!-- <table>
+                        <tr>
+                            <td>学号</td>
+                            <td>姓名</td>
+                            <td>宿舍</td>
+                            <td>电话</td>
+                            <td>QQ微信</td>
+                            <td>家长联系方式1</td>
+                            <td>家长联系方式2</td>
+                        </tr>
+                        <tr>
+                            <td>201932301481</td>
+                            <td>张世纪</td>
+                            <td>N12#513</td>
+                            <td>N12#513</td>
+                            <td>N12#513</td>
+                            <td>N12#513</td>
+                            <td>N12#513</td>
+                        </tr>
+                    </table> -->
+                </div>
+                
+            </div>
+
+
+
+            <div id="zong">
+                <!-- <table>
+                    <tr>
+                        <td colspan="7"><strong>早上</strong></td>
+                    </tr>
+                    <tr>
+                        <td>应到</td>
+                        <td>未到</td>
+                        <td>实到</td>
+                        <td>迟到</td>
+                        <td>事假</td>
+                        <td>病假</td>
+                    </tr>
+                    <tr>
+                        <td>60</td>
+                        <td>10</td>
+                        <td>12</td>
+                        <td>10</td>
+                        <td>10</td>
+                        <td>10</td>
+                    </tr>
+                </table> -->
+            </div>
+            <hr>
+
+            <ul id="list">
+                <div style="color: white;text-align: center;">
+                    加载中......
+                </div>
+            </ul>
+
+        </div>
+
+        <!-- 宿舍情况面板 -->
+        <div id="sshe" hidden>
+            <select id="ssheriqi">
+                <option value="-">---请选择---</option>
+            </select>
+            <button id="ssbtn">查询</button>
+            <div id="sstab"></div>
+        </div>
+
+        <!-- 文档下载 -->
+        <div id="tool" hidden>
+            <div class="mrkq"><h2>每日考勤表</h2>
+                请选择队伍：
+                <select id="teamlist"></select>
+                <button id="mrkq_dow">下载</button>
+            </div>
+
+            <div class="jxhz"><h2>军训考核表</h2>
+                队伍：
+                <select id="downteamlist">
+                    <option value="-">---请选择---</option>
+                </select>
+                <br>
+                姓名：
+                <select id="downnamelist">
+                    <option value="-">---请选择---</option>
+                </select>
+                <br>
+
+                <!-- 请输入学号：
+                <input type="text" id="jxhz_user"> -->
+                <button id="jxhz_dow">下载</button>
+            </div>
+            
+        </div>
+
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
