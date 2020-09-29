@@ -41,7 +41,7 @@ class NEInfo
     }
     
     function demo() {
-        
+        echo '123';
     }
 
     /**
