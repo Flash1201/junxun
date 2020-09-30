@@ -1245,6 +1245,7 @@ class NEInfo
                 $w = str_replace("3", "病", $w);
                 $w = str_replace("4", "√", $w);
 
+                
                 if ($row['cqqk'] != '') {
                     $Json[] = array(
                         "rq" => $row['riqi'],
@@ -1276,7 +1277,8 @@ class NEInfo
                     's' => '√',
                     'x' => '√',
                     'w' => '√',
-                    'qk' => '无'
+                    'qk' => '无',
+                    "jly" => '小队长'
                 );
                 $i++;
             }
